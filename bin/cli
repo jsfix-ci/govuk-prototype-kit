@@ -10,6 +10,18 @@ const kitRoot = path.join(__dirname, '..')
 const copyFile = (fileName) => fs.copy(path.join(kitRoot, fileName), path.join(installDirectory, fileName))
 const command = process.argv[2]
 
+function usage () {
+  const prog = 'govuk-prototype-kit'
+  console.log(`
+${prog} <command>
+
+Usage:
+
+${prog} install
+${prog} start`
+  )
+}
+
 ;(async () => {
   if (command === 'install') {
     await Promise.all([
@@ -30,7 +42,7 @@ const command = process.argv[2]
   } else if (command === 'start') {
     require('../start')
   } else {
-    console.log(`I don't know how to handle ${command}`)
-    process.exit(2)
+    usage()
+    process.exitCode = 2
   }
 })()
